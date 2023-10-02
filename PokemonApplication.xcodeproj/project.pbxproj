@@ -19,6 +19,7 @@
 		FDFAA7CB2ACB275F00D48C09 /* PokemonApplicationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7CA2ACB275F00D48C09 /* PokemonApplicationUITestsLaunchTests.swift */; };
 		FDFAA7E22ACB2F8A00D48C09 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E12ACB2F8A00D48C09 /* Pokemon.swift */; };
 		FDFAA7E42ACB30A900D48C09 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E32ACB30A900D48C09 /* Helpers.swift */; };
+		FDFAA7E62ACB4BA500D48C09 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		FDFAA7CA2ACB275F00D48C09 /* PokemonApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FDFAA7E12ACB2F8A00D48C09 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		FDFAA7E32ACB30A900D48C09 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				FDFAA7E32ACB30A900D48C09 /* Helpers.swift */,
+				FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				FDFAA7E42ACB30A900D48C09 /* Helpers.swift in Sources */,
 				FDFAA7AF2ACB275D00D48C09 /* PokemonApplication.xcdatamodeld in Sources */,
 				FDFAA7A92ACB275D00D48C09 /* ViewController.swift in Sources */,
+				FDFAA7E62ACB4BA500D48C09 /* PokemonService.swift in Sources */,
 				FDFAA7A52ACB275D00D48C09 /* AppDelegate.swift in Sources */,
 				FDFAA7A72ACB275D00D48C09 /* SceneDelegate.swift in Sources */,
 			);
