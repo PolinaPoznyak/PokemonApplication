@@ -18,6 +18,7 @@
 		FDFAA7C92ACB275F00D48C09 /* PokemonApplicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7C82ACB275F00D48C09 /* PokemonApplicationUITests.swift */; };
 		FDFAA7CB2ACB275F00D48C09 /* PokemonApplicationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7CA2ACB275F00D48C09 /* PokemonApplicationUITestsLaunchTests.swift */; };
 		FDFAA7E22ACB2F8A00D48C09 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E12ACB2F8A00D48C09 /* Pokemon.swift */; };
+		FDFAA7E42ACB30A900D48C09 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E32ACB30A900D48C09 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		FDFAA7C82ACB275F00D48C09 /* PokemonApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonApplicationUITests.swift; sourceTree = "<group>"; };
 		FDFAA7CA2ACB275F00D48C09 /* PokemonApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FDFAA7E12ACB2F8A00D48C09 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		FDFAA7E32ACB30A900D48C09 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		FDFAA7D72ACB2CE800D48C09 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				FDFAA7E32ACB30A900D48C09 /* Helpers.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDFAA7E22ACB2F8A00D48C09 /* Pokemon.swift in Sources */,
+				FDFAA7E42ACB30A900D48C09 /* Helpers.swift in Sources */,
 				FDFAA7AF2ACB275D00D48C09 /* PokemonApplication.xcdatamodeld in Sources */,
 				FDFAA7A92ACB275D00D48C09 /* ViewController.swift in Sources */,
 				FDFAA7A52ACB275D00D48C09 /* AppDelegate.swift in Sources */,
