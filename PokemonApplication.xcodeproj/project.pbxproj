@@ -22,6 +22,7 @@
 		FDFAA7E62ACB4BA500D48C09 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */; };
 		FDFAA7E82ACB573400D48C09 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E72ACB573400D48C09 /* CustomTableViewCell.swift */; };
 		FDFAA7EA2ACB5B2300D48C09 /* PokemonInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7E92ACB5B2300D48C09 /* PokemonInteractor.swift */; };
+		FDFAA7EC2ACB5C7F00D48C09 /* PokemonPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7EB2ACB5C7F00D48C09 /* PokemonPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		FDFAA7E72ACB573400D48C09 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		FDFAA7E92ACB5B2300D48C09 /* PokemonInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInteractor.swift; sourceTree = "<group>"; };
+		FDFAA7EB2ACB5C7F00D48C09 /* PokemonPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		FDFAA7DA2ACB2D5000D48C09 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				FDFAA7EB2ACB5C7F00D48C09 /* PokemonPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				FDFAA7AF2ACB275D00D48C09 /* PokemonApplication.xcdatamodeld in Sources */,
 				FDFAA7EA2ACB5B2300D48C09 /* PokemonInteractor.swift in Sources */,
 				FDFAA7A92ACB275D00D48C09 /* ViewController.swift in Sources */,
+				FDFAA7EC2ACB5C7F00D48C09 /* PokemonPresenter.swift in Sources */,
 				FDFAA7E62ACB4BA500D48C09 /* PokemonService.swift in Sources */,
 				FDFAA7A52ACB275D00D48C09 /* AppDelegate.swift in Sources */,
 				FDFAA7A72ACB275D00D48C09 /* SceneDelegate.swift in Sources */,
