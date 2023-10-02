@@ -9,6 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: - IBOutlets
+    @IBOutlet weak var pokemonTable: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
