@@ -17,8 +17,12 @@ class DetailedPokemonViewController: UIViewController {
     @IBOutlet weak var pokemonWeight: UILabel!
     @IBOutlet weak var pokemonHeight: UILabel!
     
+    var pokemon: Pokemon?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pokemonName.text = "Name: \(pokemon?.name ?? "")"
     }
 }
 
