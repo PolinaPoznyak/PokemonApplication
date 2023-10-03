@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct PokemonService {
     
@@ -19,7 +20,20 @@ struct PokemonService {
         })
     }
     
-    func getDetailedPokemon(id: Int, _ completion:@escaping (DetailPokemon) -> ()) {
+    func fetchSpriteForPokemon(id: Int, _ completion:@escaping (String?) -> ()) {
+        Bundle.main.fetchData(url: "https://pokeapi.co/api/v2/pokemon/\(id)/", model: DetailPokemon.self) { detailPokemon in
+            if let spriteURL = detailPokemon.sprites.frontDefault {
+                completion(spriteURL.absoluteString)
+            } else {
+                completion(nil)
+            }
+        } failure: { error in
+            print(error)
+            completion(nil)
+        }
+    }
+    
+    func fetchDetailedPokemon(id: Int, _ completion:@escaping (DetailPokemon) -> ()) {
         Bundle.main.fetchData(url: "https://pokeapi.co/api/v2/pokemon/\(id)/", model: DetailPokemon.self) { data in
             completion(data)
         } failure: { error in

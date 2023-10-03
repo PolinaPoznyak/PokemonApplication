@@ -69,6 +69,16 @@ extension ViewController: UITableViewDataSource {
         
         cell.nameLbl.text = viewModel.name
         
+        presenter.getPokemonSpriteImage(id: viewModel.id) { image in
+            DispatchQueue.main.async {
+                if let pokemonImage = image {
+                    cell.spriteImg.image = pokemonImage
+                } else {
+                    print("No image")
+                }
+            }
+        }
+        
         return cell
     }
 }

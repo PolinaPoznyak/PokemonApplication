@@ -9,6 +9,7 @@ import Foundation
 
 protocol PokemonInteractorProtocol {
     func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void)
+    func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ())
 }
 
 class PokemonInteractor: PokemonInteractorProtocol {
@@ -28,6 +29,12 @@ class PokemonInteractor: PokemonInteractorProtocol {
             completion(.success((response.results ?? [], response.next)))
         } failure: { error in
             completion(.failure(error))
+        }
+    }
+    
+    func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ()) {
+        pokemonService.fetchSpriteForPokemon(id: id) { spriteURL in
+            completion(spriteURL)
         }
     }
 }

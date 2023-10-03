@@ -46,5 +46,18 @@ struct DetailPokemon: Codable {
     let id: Int
     let height: Int
     let weight: Int
-    let types: String
+    let sprites: Sprites
+
+    enum CodingKeys: String, CodingKey {
+        case id, height, weight, sprites
+    }
+}
+
+// MARK: - Sprites
+struct Sprites: Codable {
+    let frontDefault: URL?
+    
+    enum CodingKeys: String, CodingKey {
+        case frontDefault = "front_default"
+    }
 }

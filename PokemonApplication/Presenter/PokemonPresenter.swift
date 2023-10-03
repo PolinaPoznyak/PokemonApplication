@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PokemonPresenterProtocol {
     func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
+    func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
 }
 
 class PokemonPresenter: PokemonPresenterProtocol {
@@ -41,6 +43,28 @@ class PokemonPresenter: PokemonPresenterProtocol {
                 self.isFetchingData = false
                 print("Error fetching pokemons: \(error)")
                 completion([], nil)
+            }
+        }
+    }
+
+    func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ()) {
+        interactor.getPokemonSpriteURL(id: id) { spriteURL in
+            if let spriteURL = spriteURL, let url = URL(string: spriteURL) {
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    if let data = data, let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            completion(image)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            completion(nil)
+                        }
+                    }
+                }.resume()
+            } else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
         }
     }
