@@ -11,18 +11,28 @@ import UIKit
 protocol PokemonPresenterProtocol {
     func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
     func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
+    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ())
+    func showPokemonDetails(for viewModel: Pokemon)
 }
 
 class PokemonPresenter: PokemonPresenterProtocol {
+    
+    // MARK: - Properties
     
     private var currentPage: Int = -1
     private var isFetchingData: Bool = false
     
     let interactor: PokemonInteractorProtocol
+    let router: PokemonRouterProtocol
     
-    init(interactor: PokemonInteractorProtocol) {
+    // MARK: - init
+    
+    init(interactor: PokemonInteractorProtocol, router: PokemonRouterProtocol) {
         self.interactor = interactor
+        self.router = router
     }
+    
+    // MARK: - Interector
     
     func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void) {
         var nextPageOffset = offset ?? -1
@@ -67,5 +77,19 @@ class PokemonPresenter: PokemonPresenterProtocol {
                 }
             }
         }
+    }
+    
+    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ()) {
+        interactor.getDetailedPokemon(id: viewModel.id) { (detailPokemon: DetailPokemon) in
+            DispatchQueue.main.async {
+                completion(detailPokemon)
+            }
+        }
+    }
+
+    // MARK: - Router
+    
+    func showPokemonDetails(for viewModel: Pokemon) {
+        router.showPokemonDetails(for: viewModel)
     }
 }
