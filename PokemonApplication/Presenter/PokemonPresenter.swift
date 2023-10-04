@@ -11,6 +11,7 @@ import UIKit
 protocol PokemonPresenterProtocol {
     func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
     func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
+    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ())
     func showPokemonDetails(for viewModel: Pokemon)
 }
 
@@ -78,6 +79,14 @@ class PokemonPresenter: PokemonPresenterProtocol {
         }
     }
     
+    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ()) {
+        interactor.getDetailedPokemon(id: viewModel.id) { (detailPokemon: DetailPokemon) in
+            DispatchQueue.main.async {
+                completion(detailPokemon)
+            }
+        }
+    }
+
     // MARK: - Router
     
     func showPokemonDetails(for viewModel: Pokemon) {
