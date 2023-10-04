@@ -48,16 +48,16 @@ class DetailedPokemonViewController: UIViewController {
     // MARK: - Configuration
     
     func configureHeight() {
-        if let height = detaildPokemon?.weight {
-            pokemonWeight.text = "Height: \(height)"
+        if let height = detaildPokemon?.height {
+            pokemonHeight.text = "Height: \(height) M"
         } else {
-            pokemonWeight.text = "Height: N/A"
+            pokemonHeight.text = "Height: N/A"
         }
     }
     
     func configureWeight() {
         if let weight = detaildPokemon?.weight {
-            pokemonWeight.text = "Weight: \(weight)"
+            pokemonWeight.text = "Weight: \(weight) KG"
         } else {
             pokemonWeight.text = "Weight: N/A"
         }

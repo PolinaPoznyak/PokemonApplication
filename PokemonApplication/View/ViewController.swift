@@ -36,6 +36,14 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedIndexPath = pokemonTable.indexPathForSelectedRow {
+            pokemonTable.deselectRow(at: selectedIndexPath, animated: true)
+        }
+    }
 }
 
 // MARK: - Extensions
