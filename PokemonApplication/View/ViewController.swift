@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var presenter: PokemonPresenterProtocol!
     var viewModels: [Pokemon] = []
+    var selectedPokemon: Pokemon?
     var nextPageUrl: String?
     
     override func viewDidLoad() {
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
         pokemonTable.delegate = self
         pokemonTable.dataSource = self
         
-        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()))
+        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()), router: PokemonRouter(presentingViewController: self))
             
         presenter.showPokemon(offset: nil) { (viewModels, nextPageUrl) in
             DispatchQueue.main.async {
@@ -54,6 +55,11 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedPokemon = viewModels[indexPath.row]
+        presenter.showPokemonDetails(for: viewModels[indexPath.row])
     }
 }
 

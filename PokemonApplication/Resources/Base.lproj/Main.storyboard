@@ -111,7 +111,7 @@
         <!--Detailed Pokemon View Controller-->
         <scene sceneID="wQH-bZ-r6O">
             <objects>
-                <viewController id="Vf1-e4-FGy" customClass="DetailedPokemonViewController" customModule="PokemonApplication" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailedPokemon" id="Vf1-e4-FGy" customClass="DetailedPokemonViewController" customModule="PokemonApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W4j-Wn-Vk5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -175,11 +175,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="aBE-ku-2ZA"/>
                     <connections>
-                        <outlet property="pokemonHeight" destination="iN1-19-QSE" id="0Ou-FG-z0e"/>
+                        <outlet property="pokemonHeight" destination="iN1-19-QSE" id="5XD-Xe-u8T"/>
                         <outlet property="pokemonImg" destination="gaI-6I-TN0" id="pyC-VZ-siy"/>
-                        <outlet property="pokemonName" destination="uUv-Lk-PBY" id="f2D-wd-74B"/>
-                        <outlet property="pokemonType" destination="uUv-Lk-PBY" id="vUY-rb-fWx"/>
-                        <outlet property="pokemonWeight" destination="9Ex-Tc-vhN" id="YCs-f1-0Xh"/>
+                        <outlet property="pokemonName" destination="dCm-Sb-dSs" id="OdF-K5-5Y7"/>
+                        <outlet property="pokemonType" destination="uUv-Lk-PBY" id="fbm-ND-9Vc"/>
+                        <outlet property="pokemonWeight" destination="9Ex-Tc-vhN" id="gKd-pg-zAZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyl-Z8-rBi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
