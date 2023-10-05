@@ -28,6 +28,10 @@ class ViewController: UIViewController {
         
         presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()), router: PokemonRouter(presentingViewController: self))
             
+        if !presenter.isInternetAvailable() {
+            showNoInternetConnectionAlert()
+        }
+        
         presenter.showPokemon(offset: nil) { (viewModels, nextPageUrl) in
             DispatchQueue.main.async {
                 self.viewModels = viewModels
@@ -44,6 +48,16 @@ class ViewController: UIViewController {
             pokemonTable.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
+    
+    public func showNoInternetConnectionAlert() {
+        let alertController = UIAlertController(title: "No Internet Connection", message: "You are in online mode, and cached data is available. Please check your internet connection to access updated information.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
 }
 
 // MARK: - Extensions

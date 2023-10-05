@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol PokemonPresenterProtocol {
+    func isInternetAvailable() -> Bool
     func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
     func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
     func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ())
@@ -30,6 +31,10 @@ class PokemonPresenter: PokemonPresenterProtocol {
     init(interactor: PokemonInteractorProtocol, router: PokemonRouterProtocol) {
         self.interactor = interactor
         self.router = router
+    }
+    
+    func isInternetAvailable() -> Bool {
+        return NetworkUtility.isConnectedToNetwork()
     }
     
     // MARK: - Interector
