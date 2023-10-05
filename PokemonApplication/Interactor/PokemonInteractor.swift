@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 protocol PokemonInteractorProtocol {
     func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void)
@@ -15,21 +17,77 @@ protocol PokemonInteractorProtocol {
 
 class PokemonInteractor: PokemonInteractorProtocol {
     let pokemonService: PokemonService
+    private var hasClearedCache = false
     
     init(pokemonService: PokemonService) {
         self.pokemonService = pokemonService
     }
     
     func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void) {
-        var apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=20"
-        if let offset = offset {
-            apiUrl += "&offset=\(offset)"
+        if NetworkUtility.isConnectedToNetwork() {
+            if !hasClearedCache {
+                clearCachedPokemonData()
+                hasClearedCache = true
+            }
+            
+            var apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=20"
+            if let offset = offset {
+                apiUrl += "&offset=\(offset)"
+            }
+            
+            Bundle.main.fetchData(url: apiUrl, model: PokemonListResponse.self) { response in
+                DispatchQueue.main.async {
+                    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                    
+                    for pokemon in response.results ?? [] {
+                        let pokemonEntity = PokeEntity(context: context)
+                        pokemonEntity.id = Int32(pokemon.id)
+                        pokemonEntity.name = pokemon.name
+                        pokemonEntity.url = pokemon.url
+                    }
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Error saving to CoreData: \(error)")
+                    }
+                    
+                    completion(.success((response.results ?? [], response.next)))
+                }
+            } failure: { error in
+                completion(.failure(error))
+            }
+        } else {
+            loadCachedPokemons(completion: completion)
         }
+    }
+
+    func loadCachedPokemons(completion: @escaping (Result<([Pokemon], String?), Error>) -> Void) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<PokeEntity> = PokeEntity.fetchRequest()
         
-        Bundle.main.fetchData(url: apiUrl, model: PokemonListResponse.self) { response in
-            completion(.success((response.results ?? [], response.next)))
-        } failure: { error in
+        do {
+            let pokemonEntities = try context.fetch(fetchRequest)
+            let cachedPokemons = pokemonEntities.map { entity in
+                Pokemon(name: entity.name, url: entity.url)
+            }
+            
+            completion(.success((cachedPokemons, nil)))
+        } catch {
+            print("Error fetching from CoreData: \(error)")
             completion(.failure(error))
+        }
+    }
+
+    func clearCachedPokemonData() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PokeEntity.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch {
+            print("Error clearing cached data: \(error)")
         }
     }
     

@@ -88,7 +88,7 @@ extension ViewController: UITableViewDataSource {
                 if let pokemonImage = image {
                     cell.spriteImg.image = pokemonImage
                 } else {
-                    print("No image")
+                    cell.spriteImg.image = UIImage(named: "pokemon-logo")
                 }
             }
         }

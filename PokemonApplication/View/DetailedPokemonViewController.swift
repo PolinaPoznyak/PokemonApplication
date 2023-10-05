@@ -84,7 +84,7 @@ class DetailedPokemonViewController: UIViewController {
                 if let pokemonImage = image {
                     pokemonImg.image = pokemonImage
                 } else {
-                    print("No image")
+                    pokemonImg.image = UIImage(named: "pokemon-logo")
                 }
             }
         }
