@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PokemonListViewController.swift
 //  PokemonApplication
 //
 //  Created by Polina Poznyak on 2.10.23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PokemonListViewController: UIViewController {
 
     // MARK: - IBOutlets
     
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
 
 // MARK: - Extensions
 
-extension ViewController: UITableViewDelegate {
+extension PokemonListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == viewModels.count - 1, let nextPageUrl = nextPageUrl {
             presenter.showPokemon(offset: nil) { (newViewModels, newNextPageUrl) in
@@ -86,7 +86,7 @@ extension ViewController: UITableViewDelegate {
 }
 
 
-extension ViewController: UITableViewDataSource {
+extension PokemonListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
