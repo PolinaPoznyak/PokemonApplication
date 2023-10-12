@@ -15,7 +15,7 @@ class PokemonListViewController: UIViewController {
     
     // MARK: - Properties
     
-    var presenter: PokemonPresenterProtocol!
+    var presenter: PokemonPresenterProtocol?
     var pokemonList: [Pokemon] = []
     var selectedPokemon: Pokemon?
     var nextPageUrl: String?
@@ -28,11 +28,11 @@ class PokemonListViewController: UIViewController {
         
         presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()), router: PokemonRouter(presentingViewController: self))
             
-        if !presenter.isInternetAvailable() {
+        if !(presenter?.isInternetAvailable() ?? false) {
             showNoInternetConnectionAlert()
         }
         
-        presenter.showPokemon(offset: nil) { (viewModels, nextPageUrl) in
+        presenter?.showPokemon(offset: nil) { (viewModels, nextPageUrl) in
             DispatchQueue.main.async {
                 self.pokemonList = viewModels
                 self.nextPageUrl = nextPageUrl
@@ -65,7 +65,7 @@ class PokemonListViewController: UIViewController {
 extension PokemonListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == pokemonList.count - 1, let nextPageUrl = nextPageUrl {
-            presenter.showPokemon(offset: nil) { (newViewModels, newNextPageUrl) in
+            presenter?.showPokemon(offset: nil) { (newViewModels, newNextPageUrl) in
                 DispatchQueue.main.async {
                     self.pokemonList.append(contentsOf: newViewModels)
                     self.nextPageUrl = newNextPageUrl
@@ -81,7 +81,7 @@ extension PokemonListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedPokemon = pokemonList[indexPath.row]
-        presenter.showPokemonDetails(for: pokemonList[indexPath.row])
+        presenter?.showPokemonDetails(for: pokemonList[indexPath.row])
     }
 }
 
@@ -97,7 +97,7 @@ extension PokemonListViewController: UITableViewDataSource {
         
         cell.nameLbl.text = viewModel.name
         
-        presenter.getPokemonSpriteImage(id: viewModel.id) { image in
+        presenter?.getPokemonSpriteImage(id: viewModel.id) { image in
             DispatchQueue.main.async {
                 if let pokemonImage = image {
                     cell.spriteImg.image = pokemonImage
