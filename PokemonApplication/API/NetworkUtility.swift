@@ -8,7 +8,7 @@
 import Foundation
 import SystemConfiguration
 
-public class NetworkUtility {
+final public class NetworkUtility {
 
     class func isConnectedToNetwork() -> Bool {
         var zeroAddress = sockaddr_in()

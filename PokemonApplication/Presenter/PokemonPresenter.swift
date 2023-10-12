@@ -16,7 +16,7 @@ protocol PokemonPresenterProtocol {
     func showPokemonDetails(for viewModel: Pokemon)
 }
 
-class PokemonPresenter: PokemonPresenterProtocol {
+final class PokemonPresenter: PokemonPresenterProtocol {
     
     // MARK: - Properties
     

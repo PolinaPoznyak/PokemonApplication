@@ -12,7 +12,7 @@ protocol PokemonRouterProtocol {
     func showPokemonDetails(for viewModels: Pokemon)
 }
 
-class PokemonRouter: PokemonRouterProtocol {
+final class PokemonRouter: PokemonRouterProtocol {
     
     let presentingViewController: UIViewController
     

@@ -15,7 +15,7 @@ protocol PokemonInteractorProtocol {
     func getDetailedPokemon(id: Int, completion: @escaping (DetailPokemon) -> ())
 }
 
-class PokemonInteractor: PokemonInteractorProtocol {
+final class PokemonInteractor: PokemonInteractorProtocol {
     let pokemonService: PokemonService
     private var hasClearedCache = false
     
