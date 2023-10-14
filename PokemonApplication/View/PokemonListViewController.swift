@@ -26,7 +26,7 @@ class PokemonListViewController: UIViewController {
         pokemonTable.delegate = self
         pokemonTable.dataSource = self
         
-        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()), router: PokemonRouter(presentingViewController: self))
+        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()), router: PokemonRouter(presentingViewController: self))
             
         if !(presenter?.isInternetAvailable() ?? false) {
             showNoInternetConnectionAlert()

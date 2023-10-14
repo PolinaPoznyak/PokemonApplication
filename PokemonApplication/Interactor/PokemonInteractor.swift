@@ -17,16 +17,18 @@ protocol PokemonInteractorProtocol {
 
 final class PokemonInteractor: PokemonInteractorProtocol {
     let pokemonService: PokemonService
+    let databaseService: PokemonDBServiceProtocol
     private var hasClearedCache = false
     
-    init(pokemonService: PokemonService) {
+    init(pokemonService: PokemonService, databaseService: PokemonDBServiceProtocol) {
         self.pokemonService = pokemonService
+        self.databaseService = databaseService
     }
     
     func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void) {
         if NetworkUtility.isConnectedToNetwork() {
             if !hasClearedCache {
-                clearCachedPokemonData()
+                databaseService.clearCachedPokemonData()
                 hasClearedCache = true
             }
             
@@ -37,20 +39,7 @@ final class PokemonInteractor: PokemonInteractorProtocol {
             
             Bundle.main.fetchData(url: apiUrl, model: PokemonListResponse.self) { response in
                 DispatchQueue.main.async {
-                    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-                    
-                    for pokemon in response.results ?? [] {
-                        let pokemonEntity = PokeEntity(context: context)
-                        pokemonEntity.id = Int32(pokemon.id)
-                        pokemonEntity.name = pokemon.name
-                        pokemonEntity.url = pokemon.url
-                    }
-                    
-                    do {
-                        try context.save()
-                    } catch {
-                        print("Error saving to CoreData: \(error)")
-                    }
+                    self.databaseService.savePokemons(response.results ?? [])
                     
                     completion(.success((response.results ?? [], response.next)))
                 }
@@ -58,36 +47,8 @@ final class PokemonInteractor: PokemonInteractorProtocol {
                 completion(.failure(error))
             }
         } else {
-            loadCachedPokemons(completion: completion)
-        }
-    }
-
-    func loadCachedPokemons(completion: @escaping (Result<([Pokemon], String?), Error>) -> Void) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<PokeEntity> = PokeEntity.fetchRequest()
-        
-        do {
-            let pokemonEntities = try context.fetch(fetchRequest)
-            let cachedPokemons = pokemonEntities.map { entity in
-                Pokemon(name: entity.name, url: entity.url)
-            }
-            
+            let cachedPokemons = databaseService.loadCachedPokemons()
             completion(.success((cachedPokemons, nil)))
-        } catch {
-            print("Error fetching from CoreData: \(error)")
-            completion(.failure(error))
-        }
-    }
-
-    func clearCachedPokemonData() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PokeEntity.fetchRequest()
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        do {
-            try context.execute(batchDeleteRequest)
-        } catch {
-            print("Error clearing cached data: \(error)")
         }
     }
     

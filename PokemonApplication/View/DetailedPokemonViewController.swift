@@ -26,7 +26,7 @@ class DetailedPokemonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()), router: PokemonRouter(presentingViewController: self))
+        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()), router: PokemonRouter(presentingViewController: self))
         
         presenter.showDetailedPokemon(for: pokemon!) { [weak self] detailPokemon in
             if let detailPokemon = detailPokemon {
