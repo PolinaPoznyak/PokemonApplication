@@ -19,16 +19,16 @@ class DetailedPokemonViewController: UIViewController {
     
     // MARK: - Properties
     
-    var presenter: PokemonPresenterProtocol!
+    var presenter: DetailedPokemonPresenterProtocol?
     var pokemon: Pokemon?
     var detaildPokemon: DetailPokemon?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()), router: PokemonRouter(presentingViewController: self))
+        presenter = DetailedPokemonPresenter(interactor: DetailedPokemonInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()))
         
-        presenter.showDetailedPokemon(for: pokemon!) { [weak self] detailPokemon in
+        presenter?.showDetailedPokemon(for: pokemon!) { [weak self] detailPokemon in
             if let detailPokemon = detailPokemon {
                 self?.detaildPokemon = detailPokemon
                 self?.updateUI()
@@ -79,7 +79,7 @@ class DetailedPokemonViewController: UIViewController {
     }
     
     func configureSprite() {
-        presenter.getPokemonSpriteImage(id: pokemon!.id) { image in
+        presenter?.getPokemonSpriteImage(id: pokemon!.id) { image in
             DispatchQueue.main.async { [self] in
                 if let pokemonImage = image {
                     pokemonImg.image = pokemonImage
