@@ -1,5 +1,5 @@
 //
-//  PokemonPresenter.swift
+//  PokemonListPresenter.swift
 //  PokemonApplication
 //
 //  Created by Polina Poznyak on 2.10.23.
@@ -8,27 +8,26 @@
 import Foundation
 import UIKit
 
-protocol PokemonPresenterProtocol {
+protocol PokemonListPresenterProtocol {
     func isInternetAvailable() -> Bool
     func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
     func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
-    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ())
     func showPokemonDetails(for viewModel: Pokemon)
 }
 
-final class PokemonPresenter: PokemonPresenterProtocol {
+final class PokemonListPresenter: PokemonListPresenterProtocol {
     
     // MARK: - Properties
     
     private var currentPage: Int = -1
     private var isFetchingData: Bool = false
     
-    let interactor: PokemonInteractorProtocol
+    let interactor: PokemonListInteractorProtocol
     let router: PokemonRouterProtocol
     
     // MARK: - init
     
-    init(interactor: PokemonInteractorProtocol, router: PokemonRouterProtocol) {
+    init(interactor: PokemonListInteractorProtocol, router: PokemonRouterProtocol) {
         self.interactor = interactor
         self.router = router
     }
@@ -84,14 +83,6 @@ final class PokemonPresenter: PokemonPresenterProtocol {
         }
     }
     
-    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ()) {
-        interactor.getDetailedPokemon(id: viewModel.id) { (detailPokemon: DetailPokemon) in
-            DispatchQueue.main.async {
-                completion(detailPokemon)
-            }
-        }
-    }
-
     // MARK: - Router
     
     func showPokemonDetails(for viewModel: Pokemon) {

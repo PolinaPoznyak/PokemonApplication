@@ -15,7 +15,7 @@ class PokemonListViewController: UIViewController {
     
     // MARK: - Properties
     
-    var presenter: PokemonPresenterProtocol?
+    var presenter: PokemonListPresenterProtocol?
     var pokemonList: [Pokemon] = []
     var selectedPokemon: Pokemon?
     var nextPageUrl: String?
@@ -26,7 +26,7 @@ class PokemonListViewController: UIViewController {
         pokemonTable.delegate = self
         pokemonTable.dataSource = self
         
-        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()), router: PokemonRouter(presentingViewController: self))
+        presenter = PokemonListPresenter(interactor: PokemonListInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()), router: PokemonRouter(presentingViewController: self))
             
         if !(presenter?.isInternetAvailable() ?? false) {
             showNoInternetConnectionAlert()

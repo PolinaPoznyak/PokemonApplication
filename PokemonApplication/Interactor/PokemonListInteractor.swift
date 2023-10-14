@@ -1,5 +1,5 @@
 //
-//  PokemonInteractor.swift
+//  PokemonListInteractor.swift
 //  PokemonApplication
 //
 //  Created by Polina Poznyak on 2.10.23.
@@ -9,13 +9,12 @@ import Foundation
 import UIKit
 import CoreData
 
-protocol PokemonInteractorProtocol {
+protocol PokemonListInteractorProtocol {
     func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void)
     func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ())
-    func getDetailedPokemon(id: Int, completion: @escaping (DetailPokemon) -> ())
 }
 
-final class PokemonInteractor: PokemonInteractorProtocol {
+final class PokemonListInteractor: PokemonListInteractorProtocol {
     let pokemonService: PokemonService
     let databaseService: PokemonDBServiceProtocol
     private var hasClearedCache = false
@@ -55,12 +54,6 @@ final class PokemonInteractor: PokemonInteractorProtocol {
     func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ()) {
         pokemonService.fetchSpriteForPokemon(id: id) { spriteURL in
             completion(spriteURL)
-        }
-    }
-    
-    func getDetailedPokemon(id: Int, completion: @escaping (DetailPokemon) -> ()) {
-        pokemonService.fetchDetailedPokemon(id: id) { detailPokemon in
-            completion(detailPokemon)
         }
     }
 }
