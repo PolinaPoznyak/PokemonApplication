@@ -15,6 +15,13 @@
 		FDBF0F2B2AD9DA95001B4BB0 /* PokemonDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F2A2AD9DA95001B4BB0 /* PokemonDBService.swift */; };
 		FDBF0F2D2ADAE397001B4BB0 /* DetailedPokemonInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F2C2ADAE397001B4BB0 /* DetailedPokemonInteractor.swift */; };
 		FDBF0F2F2ADAE464001B4BB0 /* DetailedPokemonPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F2E2ADAE464001B4BB0 /* DetailedPokemonPresenter.swift */; };
+		FDBF0F3E2ADC6C8A001B4BB0 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F3D2ADC6C8A001B4BB0 /* EndPointType.swift */; };
+		FDBF0F402ADC6CE2001B4BB0 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F3F2ADC6CE2001B4BB0 /* ParameterEncoding.swift */; };
+		FDBF0F422ADC6D48001B4BB0 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F412ADC6D48001B4BB0 /* URLParameterEncoder.swift */; };
+		FDBF0F442ADC6D7A001B4BB0 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F432ADC6D7A001B4BB0 /* JSONParameterEncoder.swift */; };
+		FDBF0F462ADC6DAD001B4BB0 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F452ADC6DAD001B4BB0 /* NetworkRouter.swift */; };
+		FDBF0F482ADC6DE8001B4BB0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F472ADC6DE8001B4BB0 /* Router.swift */; };
+		FDBF0F4A2ADC8058001B4BB0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBF0F492ADC8058001B4BB0 /* NetworkError.swift */; };
 		FDFAA7A52ACB275D00D48C09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7A42ACB275D00D48C09 /* AppDelegate.swift */; };
 		FDFAA7A72ACB275D00D48C09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7A62ACB275D00D48C09 /* SceneDelegate.swift */; };
 		FDFAA7A92ACB275D00D48C09 /* PokemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFAA7A82ACB275D00D48C09 /* PokemonListViewController.swift */; };
@@ -61,6 +68,13 @@
 		FDBF0F2A2AD9DA95001B4BB0 /* PokemonDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDBService.swift; sourceTree = "<group>"; };
 		FDBF0F2C2ADAE397001B4BB0 /* DetailedPokemonInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPokemonInteractor.swift; sourceTree = "<group>"; };
 		FDBF0F2E2ADAE464001B4BB0 /* DetailedPokemonPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPokemonPresenter.swift; sourceTree = "<group>"; };
+		FDBF0F3D2ADC6C8A001B4BB0 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		FDBF0F3F2ADC6CE2001B4BB0 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		FDBF0F412ADC6D48001B4BB0 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		FDBF0F432ADC6D7A001B4BB0 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
+		FDBF0F452ADC6DAD001B4BB0 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		FDBF0F472ADC6DE8001B4BB0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		FDBF0F492ADC8058001B4BB0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		FDFAA7A12ACB275D00D48C09 /* PokemonApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDFAA7A42ACB275D00D48C09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDFAA7A62ACB275D00D48C09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +135,43 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		FDBF0F372ADC6BF7001B4BB0 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				FDBF0F3D2ADC6C8A001B4BB0 /* EndPointType.swift */,
+				FDBF0F282AD9A114001B4BB0 /* PokemonEndPoint.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		FDBF0F3A2ADC6C1C001B4BB0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		FDBF0F3B2ADC6C34001B4BB0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FDBF0F452ADC6DAD001B4BB0 /* NetworkRouter.swift */,
+				FDBF0F472ADC6DE8001B4BB0 /* Router.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		FDBF0F3C2ADC6C3D001B4BB0 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				FDBF0F492ADC8058001B4BB0 /* NetworkError.swift */,
+				FDBF0F3F2ADC6CE2001B4BB0 /* ParameterEncoding.swift */,
+				FDBF0F432ADC6D7A001B4BB0 /* JSONParameterEncoder.swift */,
+				FDBF0F412ADC6D48001B4BB0 /* URLParameterEncoder.swift */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
 		FDFAA7982ACB275D00D48C09 = {
 			isa = PBXGroup;
 			children = (
@@ -178,10 +229,12 @@
 		FDFAA7D72ACB2CE800D48C09 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				FDBF0F3C2ADC6C3D001B4BB0 /* Encoding */,
+				FDBF0F372ADC6BF7001B4BB0 /* Endpoint */,
+				FDBF0F3A2ADC6C1C001B4BB0 /* Manager */,
+				FDBF0F3B2ADC6C34001B4BB0 /* Service */,
 				FDFAA7E32ACB30A900D48C09 /* Helpers.swift */,
 				FD7939F72ACF342800C90098 /* NetworkUtility.swift */,
-				FDFAA7E52ACB4BA500D48C09 /* PokemonService.swift */,
-				FDBF0F282AD9A114001B4BB0 /* PokemonEndPoint.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -381,7 +434,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDBF0F402ADC6CE2001B4BB0 /* ParameterEncoding.swift in Sources */,
 				FDFAA7E22ACB2F8A00D48C09 /* Pokemon.swift in Sources */,
+				FDBF0F482ADC6DE8001B4BB0 /* Router.swift in Sources */,
 				FDFAA7E42ACB30A900D48C09 /* Helpers.swift in Sources */,
 				FDFAA7E82ACB573400D48C09 /* CustomTableViewCell.swift in Sources */,
 				FDBF0F2F2ADAE464001B4BB0 /* DetailedPokemonPresenter.swift in Sources */,
@@ -389,15 +444,20 @@
 				FD7939F82ACF342800C90098 /* NetworkUtility.swift in Sources */,
 				FDFAA7F22ACC9C4F00D48C09 /* PokemonRouter.swift in Sources */,
 				FDFAA7EA2ACB5B2300D48C09 /* PokemonListInteractor.swift in Sources */,
+				FDBF0F3E2ADC6C8A001B4BB0 /* EndPointType.swift in Sources */,
 				FDFAA7A92ACB275D00D48C09 /* PokemonListViewController.swift in Sources */,
 				FDFAA7EC2ACB5C7F00D48C09 /* PokemonListPresenter.swift in Sources */,
+				FDBF0F422ADC6D48001B4BB0 /* URLParameterEncoder.swift in Sources */,
 				FDFAA7E62ACB4BA500D48C09 /* PokemonService.swift in Sources */,
 				FDBF0F292AD9A114001B4BB0 /* PokemonEndPoint.swift in Sources */,
 				FD7939F52ACF1EB100C90098 /* PokeEntity+CoreDataClass.swift in Sources */,
 				FDBF0F2D2ADAE397001B4BB0 /* DetailedPokemonInteractor.swift in Sources */,
+				FDBF0F462ADC6DAD001B4BB0 /* NetworkRouter.swift in Sources */,
 				FDFAA7A52ACB275D00D48C09 /* AppDelegate.swift in Sources */,
 				FDFAA7A72ACB275D00D48C09 /* SceneDelegate.swift in Sources */,
+				FDBF0F442ADC6D7A001B4BB0 /* JSONParameterEncoder.swift in Sources */,
 				FDFAA7EE2ACC7D5C00D48C09 /* DetailedPokemonViewController.swift in Sources */,
+				FDBF0F4A2ADC8058001B4BB0 /* NetworkError.swift in Sources */,
 				FDBF0F2B2AD9DA95001B4BB0 /* PokemonDBService.swift in Sources */,
 				FD7939F62ACF1EB100C90098 /* PokeEntity+CoreDataProperties.swift in Sources */,
 			);
