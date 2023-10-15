@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol PokemonListInteractorProtocol {
-    func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void)
+    func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], Int?), Error>) -> Void)
     func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ())
 }
 
@@ -18,32 +18,32 @@ final class PokemonListInteractor: PokemonListInteractorProtocol {
     let pokemonService: PokemonService
     let databaseService: PokemonDBServiceProtocol
     private var hasClearedCache = false
+    private let limit: Int = 20
     
     init(pokemonService: PokemonService, databaseService: PokemonDBServiceProtocol) {
         self.pokemonService = pokemonService
         self.databaseService = databaseService
     }
     
-    func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], String?), Error>) -> Void) {
+    func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], Int?), Error>) -> Void) {
+        let newOffset = offset ?? 0
+
         if NetworkUtility.isConnectedToNetwork() {
             if !hasClearedCache {
                 databaseService.clearCachedPokemonData()
                 hasClearedCache = true
             }
             
-            var apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=20"
-            if let offset = offset {
-                apiUrl += "&offset=\(offset)"
-            }
-            
-            Bundle.main.fetchData(url: apiUrl, model: PokemonListResponse.self) { response in
-                DispatchQueue.main.async {
-                    self.databaseService.savePokemons(response.results ?? [])
+            pokemonService.getListOfPokemons(offset: newOffset, limit: limit) { response, error in
+                if error != nil {
+                    completion(.failure(NetworkError.failed))
+                } else if let pokemonList = response?.results {
                     
-                    completion(.success((response.results ?? [], response.next)))
+                    self.databaseService.savePokemons(pokemonList)
+                    completion(.success((pokemonList, response?.nextOffset)))
+                } else {
+                    completion(.failure(NetworkError.failed))
                 }
-            } failure: { error in
-                completion(.failure(error))
             }
         } else {
             let cachedPokemons = databaseService.loadCachedPokemons()
@@ -52,8 +52,13 @@ final class PokemonListInteractor: PokemonListInteractorProtocol {
     }
     
     func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ()) {
-        pokemonService.fetchSpriteForPokemon(id: id) { spriteURL in
-            completion(spriteURL)
+        pokemonService.fetchSpriteForPokemon(id: id) { result in
+            switch result {
+            case .success(let spriteURL):
+                completion(spriteURL)
+            case .failure:
+                completion(nil)
+            }
         }
     }
 }

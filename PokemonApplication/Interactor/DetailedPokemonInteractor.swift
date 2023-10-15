@@ -24,14 +24,24 @@ final class DetailedPokemonInteractor: DetailedPokemonInteractorProtocol {
     }
     
     func getDetailedPokemon(id: Int, completion: @escaping (DetailPokemon) -> ()) {
-        pokemonService.fetchDetailedPokemon(id: id) { detailPokemon in
-            completion(detailPokemon)
+        pokemonService.fetchDetailedPokemon(id: id) { result in
+            switch result {
+            case .success(let detailPokemon):
+                completion(detailPokemon)
+            case .failure:
+                completion(DetailPokemon(id: 0, height: 0, weight: 0, types: [], sprites: Sprites(frontDefault: nil)))
+            }
         }
     }
     
     func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ()) {
-        pokemonService.fetchSpriteForPokemon(id: id) { spriteURL in
-            completion(spriteURL)
+        pokemonService.fetchSpriteForPokemon(id: id) { result in
+            switch result {
+            case .success(let spriteURL):
+                completion(spriteURL)
+            case .failure:
+                completion(nil)
+            }
         }
     }
 }

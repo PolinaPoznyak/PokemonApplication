@@ -10,7 +10,7 @@ import UIKit
 
 protocol PokemonListPresenterProtocol {
     func isInternetAvailable() -> Bool
-    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
+    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], Int?) -> Void)
     func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
     func showPokemonDetails(for viewModel: Pokemon)
 }
@@ -38,7 +38,7 @@ final class PokemonListPresenter: PokemonListPresenterProtocol {
     
     // MARK: - Interector
     
-    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void) {
+    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], Int?) -> Void) {
         var nextPageOffset = offset ?? -1
         if isFetchingData {
             return
@@ -50,12 +50,10 @@ final class PokemonListPresenter: PokemonListPresenterProtocol {
         
         interactor.getPokemons(offset: nextPageOffset) { result in
             switch result {
-            case .success(let (pokemons, nextPageUrl)):
+            case .success(let (pokemons, newOffset)):
                 self.isFetchingData = false
-                completion(pokemons, nextPageOffset >= 0 ? "https://pokeapi.co/api/v2/pokemon?offset=\(nextPageOffset)&limit=20" : nil)
-            case .failure(let error):
-                self.isFetchingData = false
-                print("Error fetching pokemons: \(error)")
+                completion(pokemons, nextPageOffset)
+            case .failure(_):
                 completion([], nil)
             }
         }

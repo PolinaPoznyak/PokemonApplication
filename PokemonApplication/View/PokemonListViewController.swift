@@ -18,7 +18,7 @@ class PokemonListViewController: UIViewController {
     var presenter: PokemonListPresenterProtocol?
     var pokemonList: [Pokemon] = []
     var selectedPokemon: Pokemon?
-    var nextPageUrl: String?
+    var nextOffset: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +32,10 @@ class PokemonListViewController: UIViewController {
             showNoInternetConnectionAlert()
         }
         
-        presenter?.showPokemon(offset: nil) { (viewModels, nextPageUrl) in
+        presenter?.showPokemon(offset: nil) { (viewModels, nextOffset) in
             DispatchQueue.main.async {
                 self.pokemonList = viewModels
-                self.nextPageUrl = nextPageUrl
+                self.nextOffset = nextOffset
                 self.pokemonTable.reloadData()
             }
         }
@@ -64,11 +64,11 @@ class PokemonListViewController: UIViewController {
 
 extension PokemonListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == pokemonList.count - 1, let nextPageUrl = nextPageUrl {
-            presenter?.showPokemon(offset: nil) { (newViewModels, newNextPageUrl) in
+        if indexPath.row == pokemonList.count - 1, let nextOffset = nextOffset {
+            presenter?.showPokemon(offset: nextOffset) { newViewModels, newNextOffset in
                 DispatchQueue.main.async {
                     self.pokemonList.append(contentsOf: newViewModels)
-                    self.nextPageUrl = newNextPageUrl
+                    self.nextOffset = newNextOffset
                     self.pokemonTable.reloadData()
                 }
             }
