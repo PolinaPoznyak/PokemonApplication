@@ -15,50 +15,17 @@ protocol PokemonListInteractorProtocol {
 }
 
 final class PokemonListInteractor: PokemonListInteractorProtocol {
-    let pokemonService: PokemonService
-    let databaseService: PokemonDBServiceProtocol
-    private var hasClearedCache = false
-    private let limit: Int = 20
+    let pokemonDataProvider: PokemonDataProvider
     
-    init(pokemonService: PokemonService, databaseService: PokemonDBServiceProtocol) {
-        self.pokemonService = pokemonService
-        self.databaseService = databaseService
+    init(pokemonDataProvider: PokemonDataProvider) {
+        self.pokemonDataProvider = pokemonDataProvider
     }
     
     func getPokemons(offset: Int?, completion: @escaping (Result<([Pokemon], Int?), Error>) -> Void) {
-        let newOffset = offset ?? 0
-
-        if NetworkUtility.isConnectedToNetwork() {
-            if !hasClearedCache {
-                databaseService.clearCachedPokemonData()
-                hasClearedCache = true
-            }
-            
-            pokemonService.getListOfPokemons(offset: newOffset, limit: limit) { response, error in
-                if error != nil {
-                    completion(.failure(NetworkError.failed))
-                } else if let pokemonList = response?.results {
-                    
-                    self.databaseService.savePokemons(pokemonList)
-                    completion(.success((pokemonList, response?.nextOffset)))
-                } else {
-                    completion(.failure(NetworkError.failed))
-                }
-            }
-        } else {
-            let cachedPokemons = databaseService.loadCachedPokemons()
-            completion(.success((cachedPokemons, nil)))
-        }
+        pokemonDataProvider.fetchPokemons(offset: offset, completion: completion)
     }
     
     func getPokemonSpriteURL(id: Int, completion: @escaping (String?) -> ()) {
-        pokemonService.fetchSpriteForPokemon(id: id) { result in
-            switch result {
-            case .success(let spriteURL):
-                completion(spriteURL)
-            case .failure:
-                completion(nil)
-            }
-        }
+        pokemonDataProvider.fetchPokemonSpriteURL(id: id, completion: completion)
     }
 }
