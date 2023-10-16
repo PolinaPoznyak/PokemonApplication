@@ -1,5 +1,5 @@
 //
-//  PokemonPresenter.swift
+//  PokemonListPresenter.swift
 //  PokemonApplication
 //
 //  Created by Polina Poznyak on 2.10.23.
@@ -8,27 +8,26 @@
 import Foundation
 import UIKit
 
-protocol PokemonPresenterProtocol {
+protocol PokemonListPresenterProtocol {
     func isInternetAvailable() -> Bool
-    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void)
+    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], Int?) -> Void)
     func getPokemonSpriteImage(id: Int, completion: @escaping (UIImage?) -> ())
-    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ())
     func showPokemonDetails(for viewModel: Pokemon)
 }
 
-class PokemonPresenter: PokemonPresenterProtocol {
+final class PokemonListPresenter: PokemonListPresenterProtocol {
     
     // MARK: - Properties
     
     private var currentPage: Int = -1
     private var isFetchingData: Bool = false
     
-    let interactor: PokemonInteractorProtocol
+    let interactor: PokemonListInteractorProtocol
     let router: PokemonRouterProtocol
     
     // MARK: - init
     
-    init(interactor: PokemonInteractorProtocol, router: PokemonRouterProtocol) {
+    init(interactor: PokemonListInteractorProtocol, router: PokemonRouterProtocol) {
         self.interactor = interactor
         self.router = router
     }
@@ -39,7 +38,7 @@ class PokemonPresenter: PokemonPresenterProtocol {
     
     // MARK: - Interector
     
-    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], String?) -> Void) {
+    func showPokemon(offset: Int?, _ completion: @escaping ([Pokemon], Int?) -> Void) {
         var nextPageOffset = offset ?? -1
         if isFetchingData {
             return
@@ -51,12 +50,10 @@ class PokemonPresenter: PokemonPresenterProtocol {
         
         interactor.getPokemons(offset: nextPageOffset) { result in
             switch result {
-            case .success(let (pokemons, nextPageUrl)):
+            case .success(let (pokemons, newOffset)):
                 self.isFetchingData = false
-                completion(pokemons, nextPageOffset >= 0 ? "https://pokeapi.co/api/v2/pokemon?offset=\(nextPageOffset)&limit=20" : nil)
-            case .failure(let error):
-                self.isFetchingData = false
-                print("Error fetching pokemons: \(error)")
+                completion(pokemons, nextPageOffset)
+            case .failure(_):
                 completion([], nil)
             }
         }
@@ -84,14 +81,6 @@ class PokemonPresenter: PokemonPresenterProtocol {
         }
     }
     
-    func showDetailedPokemon(for viewModel: Pokemon, completion: @escaping (DetailPokemon?) -> ()) {
-        interactor.getDetailedPokemon(id: viewModel.id) { (detailPokemon: DetailPokemon) in
-            DispatchQueue.main.async {
-                completion(detailPokemon)
-            }
-        }
-    }
-
     // MARK: - Router
     
     func showPokemonDetails(for viewModel: Pokemon) {

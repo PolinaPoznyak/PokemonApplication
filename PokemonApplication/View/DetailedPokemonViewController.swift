@@ -19,16 +19,16 @@ class DetailedPokemonViewController: UIViewController {
     
     // MARK: - Properties
     
-    var presenter: PokemonPresenterProtocol!
+    var presenter: DetailedPokemonPresenterProtocol?
     var pokemon: Pokemon?
     var detaildPokemon: DetailPokemon?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService()), router: PokemonRouter(presentingViewController: self))
+        presenter = DetailedPokemonPresenter(interactor: DetailedPokemonInteractor(pokemonService: PokemonService(), databaseService: PokemonDBService()))
         
-        presenter.showDetailedPokemon(for: pokemon!) { [weak self] detailPokemon in
+        presenter?.showDetailedPokemon(for: pokemon!) { [weak self] detailPokemon in
             if let detailPokemon = detailPokemon {
                 self?.detaildPokemon = detailPokemon
                 self?.updateUI()
@@ -37,7 +37,7 @@ class DetailedPokemonViewController: UIViewController {
     }
     
     private func updateUI() {
-        pokemonName.text = "Name: \(pokemon?.name ?? "")"
+        pokemonName.text = "\(pokemon?.name ?? "")"
         
         configureHeight()
         configureWeight()
@@ -49,23 +49,23 @@ class DetailedPokemonViewController: UIViewController {
     
     func configureHeight() {
         if let height = detaildPokemon?.height {
-            pokemonHeight.text = "Height: \(height) M"
+            pokemonHeight.text = "\(height)"
         } else {
-            pokemonHeight.text = "Height: N/A"
+            pokemonHeight.text = "-"
         }
     }
     
     func configureWeight() {
         if let weight = detaildPokemon?.weight {
-            pokemonWeight.text = "Weight: \(weight) KG"
+            pokemonWeight.text = "\(weight)"
         } else {
-            pokemonWeight.text = "Weight: N/A"
+            pokemonWeight.text = "-"
         }
     }
     
     func configureTypes() {
         if let types = detaildPokemon?.types {
-            var typeText = "Types: "
+            var typeText = ""
             for type in types {
                 if let typeName = type.type?.name {
                     typeText += typeName + ", "
@@ -79,7 +79,7 @@ class DetailedPokemonViewController: UIViewController {
     }
     
     func configureSprite() {
-        presenter.getPokemonSpriteImage(id: pokemon!.id) { image in
+        presenter?.getPokemonSpriteImage(id: pokemon!.id) { image in
             DispatchQueue.main.async { [self] in
                 if let pokemonImage = image {
                     pokemonImg.image = pokemonImage
